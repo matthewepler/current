@@ -1,0 +1,77 @@
+h1, label {
+  color: #9e42f4;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+input {
+  color: darkslategrey;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+input[type="text"]{
+  font-size: 1.2rem;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+hr {
+  border-top: 1px solid #e0e0e0;
+  margin-bottom: 2.2rem;
+}
+
+.AppWrapper {
+  padding: 50px 15px;
+}
+
+.formWrapper {
+  background: white;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 45px;
+  text-align: center;
+}
+
+.formHeader {
+  text-align: center;
+}
+
+.form {
+  margin: 15px;
+}
+
+.fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.inputField {
+  padding: 0.65rem;
+  max-width: 500px;
+}
+
+.formFooter {
+  margin: 0 auto;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+#submitButton {
+  background: #9e42f4;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1.15rem;
+  padding: 1.2rem;
+}
+
