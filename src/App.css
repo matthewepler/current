@@ -15,19 +15,20 @@ input {
 }
 
 input[type="text"]{
+  box-sizing: border-box;
   font-size: 1.2rem;
+  width: 100%;
 }
 
 label {
   display: block;
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  text-align: left;
 }
 
 hr {
   border-top: 1px solid #e0e0e0;
-  margin-bottom: 2.2rem;
+  margin-bottom: 1rem;
 }
 
 .AppWrapper {
@@ -36,34 +37,24 @@ hr {
 
 .formWrapper {
   background: white;
+  box-sizing: border-box;
   margin: 0 auto;
-  max-width: 500px;
-  padding: 45px;
-  text-align: center;
+  max-width: 600px;
+  padding: 45px 45px 20px 45px;
 }
 
 .formHeader {
   text-align: center;
 }
 
-.form {
-  margin: 15px;
-}
-
-.fieldset {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .inputField {
-  padding: 0.65rem;
-  max-width: 500px;
+  border: 1rem solid transparent;
+  box-sizing: border-box;
 }
 
 .formFooter {
   margin: 0 auto;
-  padding-top: 1.5rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 #submitButton {

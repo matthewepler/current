@@ -14,6 +14,7 @@ Only use what is necessary - no superfluous libraries
 ## Stack
 * React
 * create-react-app
+* [gridly](https://github.com/IonicaBizau/gridly) - (100 bytes, minimal flexbox CSS rules)
 
 ## Utilities
 * Linting: ESLint, AirBnB
@@ -22,7 +23,9 @@ Only use what is necessary - no superfluous libraries
 
 ## Dev Time Log
 // make this a table
-01/02/2017 8:50PM
+01/02/2017 8:50PM 11PM**
 
 ## Notes
 Console errors related to `jsx-a11y/href-no-hash` are due to a known bug with npm 5+.
+
+To solve the gutter issue with flexbox, I used transparent borders because this doesn't add padding or margins while achieving the desired result.
