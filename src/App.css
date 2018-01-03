@@ -58,11 +58,55 @@ hr {
   text-align: center;
 }
 #submitButton {
-  background: #9e42f4;
+  background:transparent;
   border: none;
-  border-radius: 0.5rem;
   color: white;
   font-size: 1.15rem;
+  outline: none;
   padding: 1.2rem;
+  position: relative;
+  will-change: transform;
+  z-index: 0;
+}
+
+#submitButton::before {
+  background: #3f0d7c;
+  border-radius: 6px;
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+  z-index: -1;
+}
+
+#submitButton::after {
+  background: #9e42f4;
+  content: '';
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#submitButton:hover {
+  transform: translateY(2px);
+}
+
+#submitButton:hover:before {
+  transform: translateY(-2px);
+}
+
+#submitButton:active {
+  transform: translateY(5px);
+  transition: none;
+}
+#submitButton:active:before {
+  transform: translateY(-5px);
+  transition: none;
 }
 
