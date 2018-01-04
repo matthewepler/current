@@ -13,6 +13,7 @@ class App extends Component {
       this.props.dispatch(fetchLocationDataAndDuration());
     }
   }
+
   render() {
     // button should appear transparent if form is not valid
     const buttonState = classnames({
@@ -77,7 +78,7 @@ App.defaultProps = {
 };
 
 export default connect(state => ({
-  formValid: state.inputField.origin && state.inputField.destination,
+  formValid: state.inputField.origin.length > 0 && state.inputField.destination.length > 0,
   latLongs: state.app.latLongs,
   errMsg: state.app.errMsg,
   duration: state.app.duration,

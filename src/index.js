@@ -4,9 +4,7 @@ import 'gridly/dist/prefixed/gridly.min.css';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { ApolloProvider } from 'react-apollo';
 
-import client from './apollo';
 import App from './containers/App/App';
 import rootReducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';

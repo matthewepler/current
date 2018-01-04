@@ -24,7 +24,7 @@ const Address = (props) => {
 };
 
 Address.propTypes = {
-  addresses: PropTypes.arrayOf(PropTypes.object),
+  addresses: PropTypes.arrayOf(PropTypes.string),
   idStr: PropTypes.string.isRequired,
 };
 
