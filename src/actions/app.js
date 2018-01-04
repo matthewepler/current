@@ -113,9 +113,7 @@ function getTravelDuration() {
 
     return fetch(uri + paramString,
       {
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        },
+        mode: 'cors',
       })
       .then((resp) => {
         return resp.json();
