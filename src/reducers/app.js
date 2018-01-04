@@ -5,6 +5,7 @@ import {
   SET_LOCATION_DATA,
   SET_ADDRESS_DATA,
   SET_DURATION_DATA,
+  SET_VOICE,
 } from '../utils/constants';
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   latLongs: [],
   addresses: [],
   duration: '',
+  voice: '',
 };
 
 function appReducer(state = initialState, action) {
@@ -23,17 +25,17 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         dataPending: true,
+        errMsg: '',
         latLongs: [],
         addresses: [],
       };
     case FETCH_SUCCESS:
-      console.log('data success', action);
       return {
         ...state,
         dataPending: false,
+        errMsg: '',
       };
     case FETCH_FAIL:
-      console.log('data fail', action);
       return {
         ...state,
         dataPending: false,
@@ -48,12 +50,17 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         addresses: [...state.addresses, action.data]
-      }
+      };
     case SET_DURATION_DATA:
       return {
         ...state,
         duration: action.data,
-      }
+      };
+    case SET_VOICE:
+      return {
+        ...state,
+        voice: action.data,
+      };
     default:
       return state;
   }

@@ -1,8 +1,8 @@
 import { INPUT_FIELD_SUCCESS, INPUT_FIELD_FAIL } from '../utils/constants';
 
 const initialState = {
-  origin: null,
-  destination: null,
+  origin: '',
+  destination: '',
 };
 
 function inputFieldReducer (state = initialState, action) {
@@ -19,7 +19,7 @@ function inputFieldReducer (state = initialState, action) {
           destination: action.data.value,
         };
       }
-      break;
+      return state;
     case INPUT_FIELD_FAIL:
       if (action.data.id === 'origin') {
         return {
@@ -32,10 +32,10 @@ function inputFieldReducer (state = initialState, action) {
           destination: false,
         };
       }
-      break;
+      return state;
     default:
       return state;
   }
-};
+}
 
 export default inputFieldReducer;

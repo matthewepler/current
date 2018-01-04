@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { PulseLoader } from 'react-spinners';
 import InputField from '../InputField/InputField';
-import { fetchAddressesAndDistance } from '../../actions/app';
+import { fetchLocationDataAndDuration } from '../../actions/app';
 import './App.css';
 
 class App extends Component {
   handleSubmit() {
     if (this.props.formValid) {
-      this.props.dispatch(fetchAddressesAndDistance());
+      this.props.dispatch(fetchLocationDataAndDuration());
     }
   }
-
   render() {
+    // button should appear transparent if form is not valid
     const buttonState = classnames({
       deactivated: !this.props.formValid,
     });
@@ -35,17 +35,21 @@ class App extends Component {
 
 
           <div className="duration">
-          {
-            this.props.dataPending ?
-              <PulseLoader color={'#9e42f4'} loading={this.props.dataPending}/>
-              : <h2>{this.props.duration}</h2>
-          }
+            {
+              this.props.dataPending ?
+                <PulseLoader color="#9e42f4" loading={this.props.dataPending}/>
+                :
+                <div>
+                  <h2>{this.props.duration}</h2>
+                  <p className="voice">{this.props.voice}</p>
+                </div>
+            }
           </div>
           {
             !this.props.dataPending && !this.props.duration ?
-            <button id="submitButton" className={buttonState}>
-              Gimme the Distance!
-            </button>
+              <button id="submitButton" className={buttonState}>
+                Gimme the Distance!
+              </button>
             : ''
           }
 
@@ -57,23 +61,26 @@ class App extends Component {
 
 App.propTypes = {
   dataPending: PropTypes.bool,
+  dispatch: PropTypes.func.isRequired,
   duration: PropTypes.string,
   errMsg: PropTypes.string,
-  formValid: PropTypes.bool.isRequired,
+  formValid: PropTypes.bool,
+  voice: PropTypes.string,
 };
 
 App.defaultProps = {
   dataPending: false,
   duration: '',
   errMsg: '',
+  formValid: false,
+  voice: '',
 };
 
-export default connect(
-  state => ({
-    formValid: state.inputField.origin && state.inputField.destination,
-    latLongs: state.app.latLongs,
-    errMsg: state.app.errMsg,
-    duration: state.app.duration,
-    dataPending: state.app.dataPending,
-  })
-)(App);
+export default connect(state => ({
+  formValid: state.inputField.origin && state.inputField.destination,
+  latLongs: state.app.latLongs,
+  errMsg: state.app.errMsg,
+  duration: state.app.duration,
+  dataPending: state.app.dataPending,
+  voice: state.app.voice,
+}))(App);

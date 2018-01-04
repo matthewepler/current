@@ -111,9 +111,16 @@ hr {
 .duration h2 {
   color: #9e42f4;
   font-size: 2.8rem;
+  margin-bottom: 0;
 }
 
 .errMsg {
   color: red;
   font-size: 0.8rem;
+}
+
+.voice {
+  color: #747373;
+  font-size: 0.8rem;
+  margin-top: 1rem;
 }

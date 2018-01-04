@@ -6,3 +6,4 @@ export const FETCH_FAIL = 'FETCH_FAIL';
 export const SET_LOCATION_DATA = 'SET_LOCATION_DATA';
 export const SET_ADDRESS_DATA = 'SET_ADDRESS_DATA';
 export const SET_DURATION_DATA = 'SET_DURATION_DATA';
+export const SET_VOICE = 'SET_VOICE';

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
+import Address from '../../components/Address/Address';
 import { inputFieldSuccess, inputFieldFail } from '../../actions/inputField';
 import { ipv4, ipv6 } from '../../utils/helpers';
 import './InputField.css';
 
 class InputField extends Component {
-  handleBlur(event) {
+  handleChange(event) {
     const val = event.target.value.trim();
     if (ipv4.test(val) ||
         ipv6.test(val)) {
@@ -26,34 +27,48 @@ class InputField extends Component {
   render() {
     const inputStatus = classnames({
       'input-error': this.props[this.props.idString] === false,
-      'input-success': this.props[this.props.idString] === true,
+      'input-success': this.props[this.props.idString]
+        && this.props[this.props.idString].length > 0,
     });
 
     return (
       <div className="inputField col-half">
         <label htmlFor={this.props.idString}>{this.props.text}</label>
-        <input
-          id={this.props.idString}
-          className={inputStatus}
-          type="text"
-          onBlur={e => this.handleBlur(e)}
-        />
+        {
+          this.props.duration.length > 0 ?
+            <div id={this.props.idString}>
+              <Address idStr={this.props.idString} />
+            </div>
+          : <input
+            id={this.props.idString}
+            className={inputStatus}
+            type="text"
+            onChange={e => this.handleChange(e)}
+          />
+        }
       </div>
     );
   }
 }
 
 InputField.propTypes = {
-  text: PropTypes.string.isRequired,
+  duration: PropTypes.string,
+  fail: PropTypes.func.isRequired,
   idString: PropTypes.string.isRequired,
   success: PropTypes.func.isRequired,
-  fail: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+};
+
+InputField.defaultProps = {
+  duration: '',
 };
 
 export default connect(
   state => ({
-    origin: state.inputField.origin,
+    addresses: state.app.addresses,
     destination: state.inputField.destination,
+    duration: state.app.duration,
+    origin: state.inputField.origin,
   }),
   dispatch => ({
     success: data => dispatch(inputFieldSuccess(data)),
