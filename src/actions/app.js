@@ -115,7 +115,7 @@ function getTravelDuration() {
       {
         mode: 'cors',
         headers: {
-          'Access-Control-Allow-Origin': 'https://tranquil-lake-68384.herokuapp.com/',
+          'Access-Control-Allow-Origin': '*',
         }
       })
       .then((resp) => {
