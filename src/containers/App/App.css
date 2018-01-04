@@ -8,27 +8,6 @@ h1 {
   margin-bottom: 2rem;
 }
 
-input {
-  color: darkslategrey;
-  margin: 0;
-  padding: 0.5rem;
-}
-
-input[type="text"]{
-  box-sizing: border-box;
-  font-size: 1.2rem;
-  width: 100%;
-}
-
-input[type="text"]:focus {
-  outline: 1px solid #9e42f4;
-}
-
-label {
-  display: block;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
 
 hr {
   border-top: 1px solid #e0e0e0;
@@ -49,11 +28,6 @@ hr {
 
 .formHeader {
   text-align: center;
-}
-
-.inputField {
-  border: 1rem solid transparent;
-  box-sizing: border-box;
 }
 
 .formFooter {

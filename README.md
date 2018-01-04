@@ -23,9 +23,12 @@ Only use what is necessary - no superfluous libraries
 
 ## Dev Time Log
 // make this a table
-01/02/2017 8:50PM 11PM**
+01/02/2017 8:50PM 11PM
+01/03/2017 6:30AM 7:15AM
 
 ## Notes
 Console errors related to `jsx-a11y/href-no-hash` are due to a known bug with npm 5+.
 
 To solve the gutter issue with flexbox, I used transparent borders because this doesn't add padding or margins while achieving the desired result.
+
+Regex for IP Addresses taken from [Regular Expressions Cookbook, 2nd Edition](http://shop.oreilly.com/product/0636920023630.do)
