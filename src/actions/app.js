@@ -4,7 +4,7 @@ import {
   IP_FETCH_PENDING,
   IP_FETCH_SUCCESS,
   IP_FETCH_FAIL,
-  SET_LAT_LONG,
+  SET_LOCATION_DATA,
 } from '../utils/constants';
 
 export const ipFetchPending = () => ({
@@ -21,7 +21,7 @@ export const ipFetchFail = msg => ({
   data: msg,
 });
 
-function getLatLong(ip) {
+function getLocationData(ip) {
   return (dispatch) => {
     const ipQuery = gql`
       {
@@ -30,13 +30,23 @@ function getLatLong(ip) {
             latitude
             longitude
           }
+          country {
+            names {
+              en
+            }
+          }
+          city {
+            names {
+              en
+            }
+          }
         }
       }
     `;
     return client.query({ query: ipQuery }).then(
       (res) => {
-        if (!res.data.getLocation.location) throw Error();
-        return res.data.getLocation.location;
+        if (!res.data.getLocation) throw Error();
+        return res.data.getLocation;
       },
       (error) => {
         dispatch(ipFetchFail('error with graphql request'));
@@ -45,35 +55,69 @@ function getLatLong(ip) {
     );
   };
 }
-export const setLatLong = data => ({
-  type: SET_LAT_LONG,
+export const setLocationData = data => ({
+  type: SET_LOCATION_DATA,
   data,
 });
 
-function getAddress() { // {latitude, longitude}
+export const getSingleAddress = ({ latitude, longitude }) => {
   return (dispatch) => {
-    return new Promise(() => {
-      true === true;
-    });
+    return fetch('http://maps.googleapis.com/maps/api/directions/json?origin=${},${}&desintation=${},${}') // <- test that the thunk is working, then replace this fetch with the GraphQL one
+      .then((resp) => {
+        if (!resp.ok) {
+          throw Error(resp.statusText);
+        }
+        return resp;
+      })
+      .then((resp) => {
+        resp.json();
+        console.log(resp.json());
+      })
+      .then(items => dispatch(ipFetchSuccess(items)))
+      .catch(() => {
+        console.log('fetch failed');
+        dispatch(ipFetchFail());
+      });
+  }
+};
+
+function getAddresses() { // {latitude, longitude}
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      resolve(true);
+    })
+  };
+}
+
+function extractDataObject(result) {
+  return {
+    address: {
+      city: result.city.names.en,
+      country: result.country.names.en,
+    },
+    location: {
+      latitude: result.location.latitude,
+      longitude: result.location.longitude,
+    },
   };
 }
 
 export const fetchAddressesAndDistance = (origin, destination) => {
-  console.log('heeeey');
-
   return (dispatch, getState) => {
     dispatch(ipFetchPending());
     const originIp = getState().inputField.origin;
     if (!originIp) throw new Error('invalid origin IP value');
-    return dispatch(getLatLong(originIp)).then((res) => {
-      if (!res.latitude || !res.longitude) throw new Error('origin ip failed fetch');
-      dispatch(setLatLong(res));
+    return dispatch(getLocationData(originIp)).then((res) => {
+      if (!res.location) throw new Error('origin ip failed fetch');
+      const data = extractDataObject(res);
+      dispatch(setLocationData(data));
       const destinationIp = getState().inputField.destination;
       if (!destinationIp) throw new Error('invalid destination IP value');
-      return dispatch(getLatLong(destinationIp)).then((res2) => {
-        if (!res2.latitude || !res2.longitude) throw new Error('destination ip failed fetch');
-        dispatch(setLatLong(res2));
-        return dispatch(getAddress(), getState()).then((res3) => {
+      return dispatch(getLocationData(destinationIp)).then((res2) => {
+        if (!res2.location) throw new Error('destination ip failed fetch');
+        const data2 = extractDataObject(res2);
+        dispatch(setLocationData(data2));
+        return dispatch(getAddresses()).then((res3) => {
           console.log('well look at you go:', res3);
         });
       });

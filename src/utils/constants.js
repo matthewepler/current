@@ -3,4 +3,4 @@ export const INPUT_FIELD_FAIL = 'INPUT_FIELD_FAIL';
 export const IP_FETCH_PENDING = 'IP_FETCH_PENDING';
 export const IP_FETCH_SUCCESS = 'IP_FETCH_SUCCESS';
 export const IP_FETCH_FAIL = 'IP_FETCH_FAIL';
-export const SET_LAT_LONG = 'SET_LAT_LONG';
+export const SET_LOCATION_DATA = 'SET_LOCATION_DATA';

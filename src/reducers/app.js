@@ -2,7 +2,7 @@ import {
   IP_FETCH_FAIL,
   IP_FETCH_PENDING,
   IP_FETCH_SUCCESS,
-  SET_LAT_LONG,
+  SET_LOCATION_DATA,
 } from '../utils/constants';
 
 const initialState = {
@@ -32,11 +32,12 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
       };
-    case SET_LAT_LONG:
-      console.log('setting lat/long', action.data);
+    case SET_LOCATION_DATA:
+    console.log('SET_LOCATION_DATA', action.data);
       return {
         ...state,
-        latLongs: [...state.latLongs, action.data],
+        latLongs: [...state.latLongs, action.data.location],
+        addresses: [...state.addresses, action.data.address]
       };
     default:
       return state;
