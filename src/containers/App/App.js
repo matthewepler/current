@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import InputField from '../InputField/InputField';
+import { fetchAddressesAndDistance } from '../../actions/app';
 import './App.css';
 
 class App extends Component {
-  componentDidMount() {
-    console.log('hi');
+  handleSubmit() {
+    if (this.props.formValid) {
+      this.props.dispatch(fetchAddressesAndDistance());
+    }
   }
+
   render() {
     const buttonState = classnames({
-      deactivated: this.props.formValid
+      deactivated: !this.props.formValid,
     });
-
     return (
       <div className="AppWrapper">
         <div className="formWrapper">
@@ -25,16 +29,23 @@ class App extends Component {
             <InputField text="Destination:" idString="destination" />
           </div>
         </div>
-        <div className="formFooter">
-          <button id="submitButton" className={buttonState}>Gimme the Distance!</button>
+        <div className="formFooter" onClick={() => this.handleSubmit()}>
+          <button id="submitButton" className={buttonState}>
+            Gimme the Distance!
+          </button>
         </div>
       </div>
     );
   }
 }
 
+App.propTypes = {
+  formValid: PropTypes.bool.isRequired,
+}
+
 export default connect(
   state => ({
-    formValid: !state.inputField.origin && !state.inputField.destination,
+    formValid: state.inputField.origin && state.inputField.destination,
+    latLongs: state.latLongs,
   })
 )(App);

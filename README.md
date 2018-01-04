@@ -23,8 +23,10 @@ Only use what is necessary - no superfluous libraries
 
 ## Dev Time Log
 // make this a table
-01/02/2017 8:50PM 11PM
-01/03/2017 6:30AM 7:15AM
+01/02/2018 8:50PM 11PM (2:10)
+01/03/2018 6:30AM 7:15AM (0:45)
+01/03/2018 8:30PM 11:15PM (2:45)
+Total: 5:40
 
 ## Notes
 Console errors related to `jsx-a11y/href-no-hash` are due to a known bug with npm 5+.

@@ -12,18 +12,20 @@ class InputField extends Component {
         ipv6.test(event.target.value.trim())) {
       this.props.success({
         id: this.props.idString,
+        value: event.target.value,
       });
     } else {
       this.props.fail({
         id: this.props.idString,
+        value: event.target.value,
       });
     }
   }
 
   render() {
     const inputStatus = classnames({
-      'input-error': this.props[this.props.idString]===false,
-      'input-success': this.props[this.props.idString]===true,
+      'input-error': this.props[this.props.idString] === false,
+      'input-success': this.props[this.props.idString] === true,
     });
 
     return (
@@ -46,7 +48,6 @@ InputField.propTypes = {
   success: PropTypes.func.isRequired,
   fail: PropTypes.func.isRequired,
 };
-
 
 export default connect(
   state => ({

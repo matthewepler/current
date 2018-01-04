@@ -6,18 +6,17 @@ const initialState = {
 };
 
 function inputFieldReducer (state = initialState, action) {
-  console.log('inputFieldReducer!', state, action);
   switch (action.type) {
     case INPUT_FIELD_SUCCESS:
       if (action.data.id === 'origin') {
         return {
           ...state,
-          origin: true,
+          origin: action.data.value,
         };
       } else if (action.data.id === 'destination') {
         return {
           ...state,
-          destination: true,
+          destination: action.data.value,
         };
       }
       break;

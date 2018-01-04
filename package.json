@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-client-preset": "^1.0.5",
     "classnames": "^2.2.5",
+    "graphql": "^0.12.3",
+    "graphql-tag": "^2.6.1",
     "gridly": "^1.4.12",
     "prop-types": "^15.6.0",
     "react": "16.2.0",
+    "react-apollo": "^2.0.4",
     "react-dom": "16.2.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "eslint": "^4.9.0",

@@ -88,6 +88,18 @@ hr {
   transition: none;
 }
 
-.deactivated {
+#submitButton.deactivated {
   opacity: 0.2;
+}
+#submitButton.deactivated:hover {
+  transform: none;
+}
+#submitButton.deactivated:hover:before {
+  transform: none;
+}
+#submitButton.deactivated:active {
+  transform: none;
+}
+#submitButton.deactivated:active:before {
+  transform: none;
 }
