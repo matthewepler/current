@@ -107,15 +107,14 @@ function getTravelDuration() {
     const [origin, destination] = getState().app.latLongs;
     const originString = `${origin.latitude},${origin.longitude}`;
     const destinationString = `${destination.latitude},${destination.longitude}`;
-    const apiKey = 'AIzaSyAqm5iTTzwi9NI0O-Ip2Ya2NYrXnODEMTk';
-    const paramString = `origin=${originString}&destination=${destinationString}&key=${apiKey}`;
+    // const apiKey = 'AIzaSyAqm5iTTzwi9NI0O-Ip2Ya2NYrXnODEMTk';
+    const paramString = `origin=${originString}&destination=${destinationString}`;
     const uri = 'https://maps.googleapis.com/maps/api/directions/json?';
 
     return fetch(uri + paramString,
       {
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         },
       })
       .then((resp) => {
