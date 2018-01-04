@@ -107,7 +107,8 @@ function getTravelDuration() {
     const [origin, destination] = getState().app.latLongs;
     const originString = `${origin.latitude},${origin.longitude}`;
     const destinationString = `${destination.latitude},${destination.longitude}`;
-    const paramString = `origin=${originString}&destination=${destinationString}`;
+    const apiKey = 'AIzaSyBVpBQl7SZm1P04i3USAo-V8ixl39b6ZCA';
+    const paramString = `origin=${originString}&destination=${destinationString}&key=${apiKey}`;
     const uri = 'https://maps.googleapis.com/maps/api/directions/json?';
 
     return fetch(uri + paramString,
@@ -120,6 +121,7 @@ function getTravelDuration() {
       .then((resp) => {
         return resp.json();
       }).then((data) => {
+        console.log(data);
         if (data.routes.length < 1) throw new Error('(no route returned from Google Maps)');
         const result = data.routes[0].legs[0];
         dispatch(setAddressData(result.start_address));
