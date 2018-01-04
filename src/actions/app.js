@@ -114,7 +114,6 @@ function getTravelDuration() {
     return fetch(uri + paramString,
       {
         headers: {
-          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',
         },
       })
