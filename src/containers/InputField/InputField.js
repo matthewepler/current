@@ -8,16 +8,17 @@ import './InputField.css';
 
 class InputField extends Component {
   handleBlur(event) {
-    if (ipv4.test(event.target.value.trim()) ||
-        ipv6.test(event.target.value.trim())) {
+    const val = event.target.value.trim();
+    if (ipv4.test(val) ||
+        ipv6.test(val)) {
       this.props.success({
         id: this.props.idString,
-        value: event.target.value,
+        value: val,
       });
     } else {
       this.props.fail({
         id: this.props.idString,
-        value: event.target.value,
+        value: val,
       });
     }
   }

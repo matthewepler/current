@@ -1,23 +1,25 @@
 import gql from 'graphql-tag';
 import client from '../apollo';
 import {
-  IP_FETCH_PENDING,
-  IP_FETCH_SUCCESS,
-  IP_FETCH_FAIL,
+  FETCH_PENDING,
+  FETCH_SUCCESS,
+  FETCH_FAIL,
   SET_LOCATION_DATA,
+  SET_ADDRESS_DATA,
+  SET_DURATION_DATA,
 } from '../utils/constants';
 
-export const ipFetchPending = () => ({
-  type: IP_FETCH_PENDING,
+export const fetchPending = () => ({
+  type: FETCH_PENDING,
 });
 
-export const ipFetchSuccess = data => ({
-  type: IP_FETCH_SUCCESS,
+export const fetchSuccess = data => ({
+  type: FETCH_SUCCESS,
   data,
 });
 
-export const ipFetchFail = msg => ({
-  type: IP_FETCH_FAIL,
+export const fetchFail = msg => ({
+  type: FETCH_FAIL,
   data: msg,
 });
 
@@ -49,7 +51,7 @@ function getLocationData(ip) {
         return res.data.getLocation;
       },
       (error) => {
-        dispatch(ipFetchFail('error with graphql request'));
+        dispatch(fetchFail('error with graphql request'));
         throw error;
       },
     );
@@ -60,34 +62,51 @@ export const setLocationData = data => ({
   data,
 });
 
-export const getSingleAddress = ({ latitude, longitude }) => {
-  return (dispatch) => {
-    return fetch('http://maps.googleapis.com/maps/api/directions/json?origin=${},${}&desintation=${},${}') // <- test that the thunk is working, then replace this fetch with the GraphQL one
-      .then((resp) => {
-        if (!resp.ok) {
-          throw Error(resp.statusText);
-        }
-        return resp;
-      })
-      .then((resp) => {
-        resp.json();
-        console.log(resp.json());
-      })
-      .then(items => dispatch(ipFetchSuccess(items)))
-      .catch(() => {
-        console.log('fetch failed');
-        dispatch(ipFetchFail());
-      });
-  }
-};
+export const setAddressData = data => ({
+  type: SET_ADDRESS_DATA,
+  data,
+})
 
-function getAddresses() { // {latitude, longitude}
-  return (dispatch) => {
-    return new Promise((resolve, reject) => {
-      resolve(true);
-    })
+export const setDuration = data => ({
+  type: SET_DURATION_DATA,
+  data,
+})
+
+function getTravelDistance() { // {latitude, longitude}
+  return (dispatch, getState) => {
+    const [origin, destination] = getState().app.latLongs;
+    const originString = `${origin.latitude},${origin.longitude}`;
+    const destinationString = `${destination.latitude},${destination.longitude}`;
+    const paramString = `origin=${originString}&destination=${destinationString}`;
+    const uri = 'http://maps.googleapis.com/maps/api/directions/json?';
+
+    return fetch(uri + paramString,
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((resp) => {
+        return resp.json()
+      }).then((data) => {
+        if (data.routes.length < 1) throw new Error('(no route returned from Google Maps)');
+        const result = data.routes[0].legs[0];
+        console.log(result);
+        dispatch(setAddressData(result.start_address));
+        dispatch(setAddressData(result.end_address));
+        dispatch(setDuration(result.duration.text));
+
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch(fetchFail(err.message));
+      });
   };
 }
+
+// 66.71.248.230
+// 184.152.73.85
 
 function extractDataObject(result) {
   return {
@@ -104,7 +123,7 @@ function extractDataObject(result) {
 
 export const fetchAddressesAndDistance = (origin, destination) => {
   return (dispatch, getState) => {
-    dispatch(ipFetchPending());
+    dispatch(fetchPending());
     const originIp = getState().inputField.origin;
     if (!originIp) throw new Error('invalid origin IP value');
     return dispatch(getLocationData(originIp)).then((res) => {
@@ -117,8 +136,8 @@ export const fetchAddressesAndDistance = (origin, destination) => {
         if (!res2.location) throw new Error('destination ip failed fetch');
         const data2 = extractDataObject(res2);
         dispatch(setLocationData(data2));
-        return dispatch(getAddresses()).then((res3) => {
-          console.log('well look at you go:', res3);
+        return dispatch(getTravelDistance()).then((res3) => {
+          dispatch(fetchSuccess());
         });
       });
     }).catch((err) => {

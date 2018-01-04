@@ -40,9 +40,9 @@ const store = configureStore(process.env.NODE_ENV);
 
 /* eslint-disable no-undef */
 ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root'),
 );
 

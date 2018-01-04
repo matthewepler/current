@@ -6,7 +6,6 @@ export const inputFieldSuccess = data => ({
 });
 
 export const inputFieldFail = (data) => {
-  console.log('fail!', data);
   return {
     type: INPUT_FIELD_FAIL,
     data,

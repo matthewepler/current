@@ -34,3 +34,15 @@ Console errors related to `jsx-a11y/href-no-hash` are due to a known bug with np
 To solve the gutter issue with flexbox, I used transparent borders because this doesn't add padding or margins while achieving the desired result.
 
 Regex for IP Addresses taken from [Regular Expressions Cookbook, 2nd Edition](http://shop.oreilly.com/product/0636920023630.do)
+
+**IP Address**
+This app will accept both ipv4 and ipv6 addresses.
+
+Use these pairs for testing, if you'd like:
+_good pair_
+66.71.248.230
+184.152.73.85
+
+_bad pair_
+66.71.248.230
+66.71.*180*.230
