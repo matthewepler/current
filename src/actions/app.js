@@ -114,6 +114,9 @@ function getTravelDuration() {
     return fetch(uri + paramString,
       {
         mode: 'cors',
+        headers: {
+          'Access-Control-Allow-Origin': 'https://tranquil-lake-68384.herokuapp.com/',
+        }
       })
       .then((resp) => {
         return resp.json();
