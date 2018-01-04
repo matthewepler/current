@@ -88,3 +88,6 @@ hr {
   transition: none;
 }
 
+.deactivated {
+  opacity: 0.2;
+}

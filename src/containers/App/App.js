@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
 import InputField from '../InputField/InputField';
 import './App.css';
 
@@ -7,6 +9,10 @@ class App extends Component {
     console.log('hi');
   }
   render() {
+    const buttonState = classnames({
+      deactivated: this.props.formValid
+    });
+
     return (
       <div className="AppWrapper">
         <div className="formWrapper">
@@ -20,11 +26,15 @@ class App extends Component {
           </div>
         </div>
         <div className="formFooter">
-          <button id="submitButton">Gimme the Distance!</button>
+          <button id="submitButton" className={buttonState}>Gimme the Distance!</button>
         </div>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    formValid: !state.inputField.origin && !state.inputField.destination,
+  })
+)(App);

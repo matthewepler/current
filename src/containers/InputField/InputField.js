@@ -22,8 +22,8 @@ class InputField extends Component {
 
   render() {
     const inputStatus = classnames({
-      'input-error': !this.props[this.props.idString],
-      'input-success': this.props[this.props.idString],
+      'input-error': this.props[this.props.idString]===false,
+      'input-success': this.props[this.props.idString]===true,
     });
 
     return (

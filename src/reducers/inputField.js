@@ -1,8 +1,8 @@
 import { INPUT_FIELD_SUCCESS, INPUT_FIELD_FAIL } from '../utils/constants';
 
 const initialState = {
-  origin: false,
-  destination: false,
+  origin: null,
+  destination: null,
 };
 
 function inputFieldReducer (state = initialState, action) {
