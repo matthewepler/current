@@ -108,7 +108,7 @@ function getTravelDuration() {
     const originString = `${origin.latitude},${origin.longitude}`;
     const destinationString = `${destination.latitude},${destination.longitude}`;
     const paramString = `origin=${originString}&destination=${destinationString}`;
-    const uri = 'http://maps.googleapis.com/maps/api/directions/json?';
+    const uri = 'https://maps.googleapis.com/maps/api/directions/json?';
 
     return fetch(uri + paramString,
       {
