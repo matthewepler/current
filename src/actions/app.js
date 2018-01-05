@@ -1,3 +1,4 @@
+/* global gapi */
 import gql from 'graphql-tag';
 import client from '../apollo';
 import { parseDuration } from '../utils/helpers';
@@ -107,30 +108,28 @@ function getTravelDuration() {
     const [origin, destination] = getState().app.latLongs;
     const originString = `${origin.latitude},${origin.longitude}`;
     const destinationString = `${destination.latitude},${destination.longitude}`;
-    const apiKey = 'AIzaSyAqm5iTTzwi9NI0O-Ip2Ya2NYrXnODEMTk';
-    const paramString = `origin=${originString}&destination=${destinationString}&key=${apiKey}`;
+    //const apiKey = 'AIzaSyAqm5iTTzwi9NI0O-Ip2Ya2NYrXnODEMTk';
+    const paramString = `origin=${originString}&destination=${destinationString}`;
     const uri = 'https://maps.googleapis.com/maps/api/directions/json?';
 
-    return fetch(uri + paramString,
-      {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          "Authorization": apiKey,
-        }
-      })
-      .then((resp) => {
-        console.log(resp);
-        return resp.json();
-      }).then((data) => {
-        console.log(data);
-        if (data.routes.length < 1) throw new Error('(no route returned from Google Maps)');
-        const result = data.routes[0].legs[0];
-        dispatch(setAddressData(result.start_address));
-        dispatch(setAddressData(result.end_address));
-        dispatch(setDuration(result.duration.text));
-        dispatch(setVoice(result.duration.text));
-      })
+    return gapi.client.init({
+      apiKey: 'AIzaSyAqm5iTTzwi9NI0O-Ip2Ya2NYrXnODEMTk',
+    }).then(() => {
+      return gapi.client.request({
+        'path': uri + paramString,
+      });
+    }).then((resp) => {
+      console.log(resp.result);
+      return resp.json();
+    }).then((data) => {
+      console.log(data);
+      if (data.routes.length < 1) throw new Error('(no route returned from Google Maps)');
+      const result = data.routes[0].legs[0];
+      dispatch(setAddressData(result.start_address));
+      dispatch(setAddressData(result.end_address));
+      dispatch(setDuration(result.duration.text));
+      dispatch(setVoice(result.duration.text));
+    })
       .catch((err) => {
         console.error(err);
         dispatch(fetchFail(err.message));
