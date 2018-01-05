@@ -112,9 +112,11 @@ function getTravelDuration() {
     const paramString = `origin=${originString}&destination=${destinationString}`;
     const uri = 'https://maps.googleapis.com/maps/api/directions/json?';
 
-    return gapi.client.init({
-      apiKey: 'AIzaSyAqm5iTTzwi9NI0O-Ip2Ya2NYrXnODEMTk',
-    }).then(() => {
+    // This is where I'm having trouble.
+    // Trying to use Google API SDK because I think I have to to make calls to their service
+    // The 'gapi' isntance is instantiated in a <script> tag in 'index.html'.
+    // There is no npm package.
+    return // ...not sure how to structure this. And it's not working anyway.
       return gapi.client.request({
         'path': uri + paramString,
       });
