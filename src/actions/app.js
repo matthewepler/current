@@ -110,6 +110,10 @@ function getTravelDuration() {
     const paramString = `origin=${originString}&destination=${destinationString}`;
     const uri = 'http://maps.googleapis.com/maps/api/directions/json?';
 
+    // Here's where I'm having issues.
+    // Is the CORS issue because the Google API request doesn't have the right stuff?
+    // I looked into their API SDK for javascript and tried it but couldn't get it to work.
+    // see 'master' branch for that fiasco.
     return fetch(uri + paramString,
       {
         headers: {
