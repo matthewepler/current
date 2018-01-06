@@ -116,6 +116,7 @@ function getTravelDuration() {
     // Trying to use Google API SDK because I think I have to to make calls to their service
     // The 'gapi' isntance is instantiated in a <script> tag in 'index.html'.
     // There is no npm package.
+    // Here's their docs page: https://developers.google.com/api-client-library/javascript/start/start-js
     return // ...not sure how to structure this. And it's not working anyway.
       return gapi.client.request({
         'path': uri + paramString,
